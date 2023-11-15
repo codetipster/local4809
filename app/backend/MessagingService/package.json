@@ -1,0 +1,11 @@
+{
+  "name": "messagingservice",
+  "version": "1.0.0",
+  "description": "Facilitates communication between users.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Nzekwe",
+  "license": "ISC"
+}

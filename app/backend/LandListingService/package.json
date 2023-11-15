@@ -1,0 +1,11 @@
+{
+  "name": "landlistingservice",
+  "version": "1.0.0",
+  "description": "Manages land listings, including creating, updating, and viewing listings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Samuel Nzekwe",
+  "license": "ISC"
+}

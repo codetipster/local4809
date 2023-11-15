@@ -85,21 +85,35 @@ To streamline deployment efforts, we will be utilizing docker for containerisati
 * Payment Processing: Integration with Stripe or PayPal for secure transactions.
 * Version Control: Git for source code management, hosted on GitHub.
 
-## Development Environment Setup
+## Local Development/Environment Setup
+#### Prerequisites:
+- Ensure Docker and Docker Compose are installed on the development machine (for Docker Compose setup).
+  Alternatively, for Kubernetes, ensure Minikube or any local Kubernetes cluster is set up.
+#### Clone the Repository:
+`````` git clone [repository URL] ``````
+``````cd local4809 `````` 
+#### Environment Setup:
+ Configure necessary environment variables. This might involve setting up a .env file or configuring variables directly in Docker Compose or Kubernetes manifests.
+#### Running with Docker Compose (if using Docker Compose):
+`````` docker-compose up ``````
+ This command will start all services defined in the docker-compose.yml file.
 
-* Clone the Repository:
-- - `git clone [repository URL]`
-* Install Node.js and NPM: Ensure you have Node.js and NPM installed on your system.
-- - Follow this link to install for your system.
-* Install Dependencies:
-Navigate to the project directory and install the required packages by running:
-- - `npm install`
-* Setup Environment Variables:
-Set up necessary environment variables, including database URI, authentication secrets, and API keys.
-Run the Backend Server:
-- - `cd apps/backend`
-- - `node server.js`
-This will start the Node.js server.
+#### Running with Kubernetes (if using Kubernetes):
+Start the local Kubernetes cluster (e.g., using Minikube).
+Apply your Kubernetes manifests:
+``````kubectl apply -f <kubernetes-manifest-file.yml>``````
+This will set up your services, deployments, and any necessary resources like load balancers.
+
+## For Production Deployment:
+#### Prerequisites:
+- Access to the cloud environment where Kubernetes cluster or Docker Swarm is hosted.
+- Necessary permissions to deploy and manage resources.(request permissions here)
+#### CI/CD Pipeline:
+ CI/CD pipeline is configured to deploy the latest changes to our cloud environment.
+
+#### Manual Deployment (if necessary):
+Similar to the local Kubernetes setup, apply your manifests to the cloud Kubernetes cluster.
+For Docker Swarm, deploy your stack using the relevant Docker commands.
 
 * Launch the React Native App:
 Ensure you have the React Native environment set up.
