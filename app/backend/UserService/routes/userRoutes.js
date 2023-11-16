@@ -94,5 +94,16 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+// GET /users/:id
+router.get('/:id', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        // Exclude sensitive information like password
+        res.json({ Name: user.Name, Email: user.Email, Role: user.Role,  _id: user._id });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = router;
