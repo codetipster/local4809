@@ -73,6 +73,9 @@ We have choosen to use a monorepo approach for document all of our developmental
 
 To streamline deployment efforts, we will be utilizing docker for containerisation of each service, docker compose or kubernetes for orchestration, and CI/CD pipelines for deployment purposes to Google cloud servers.
 
+The data model for each service has been briefly highlighted below:
+
+![dataModel](dataModel.png)
 
 ## Technologies
 
