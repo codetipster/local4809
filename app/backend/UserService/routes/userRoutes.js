@@ -60,12 +60,29 @@ router.post('/login', async (req, res) => {
                 _id: user._id,
                 Name: user.Name,
                 Email: user.Email,
-                Role: user.Role
+                Role: user.Role,
+                isProfileComplete: user.isProfileComplete,
+                profileDetails: user.profileDetails
             }
         });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
+
+// update user profile
+router.put('/update-profile/:id', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            { $set: { profileDetails: req.body, isProfileComplete: true } },
+            { new: true }
+        );
+        res.json(updatedUser);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = router;

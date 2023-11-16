@@ -14,10 +14,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isProfileComplete: {
+        type: Boolean,
+        default: false
+    },
     Role: {
         type: String,
         required: true,
         enum: ['consumer', 'farmer', 'landowner'] 
+    },
+    profileDetails: {
+        type: mongoose.Schema.Types.Mixed, // Allows for flexibility in the data stored in this field
+        default: {}
     }
     
 });
