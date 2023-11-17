@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { IntroSlider, LoginScreen, SignupScreen } from './screens';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+
+  useEffect(() => {
+    AsyncStorage.getItem('alreadyLaunched').then((value) => {
+      if(value == null){
+        AsyncStorage.setItem('alreadyLaunched', 'true');
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    })
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Local4809</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {isFirstLaunch ? (
+          <Stack.Screen options={{headerShown : false}} name="IntroSlider" component={IntroSlider} />
+        ) : (
+          <Stack.Screen options={{headerShown : false}} name="LoginScreen" component={LoginScreen} />
+        )}
+        <Stack.Screen options={{headerShown : false}} name="SignupScreen" component={SignupScreen} />
+      </Stack.Navigator>
+    </NavigationContainer> 
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
