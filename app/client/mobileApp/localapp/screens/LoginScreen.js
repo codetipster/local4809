@@ -9,6 +9,7 @@ import {Button} from '@rneui/base';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
@@ -47,6 +48,7 @@ const LoginScreen = () => {
 
   return (
     <View style={tw`flex-1 bg-gray-100`}>
+    
     <SafeAreaView style={tw`flex-1 relative`}>
       
       <Image
@@ -62,7 +64,7 @@ const LoginScreen = () => {
         </View>
 
         <View style={tw`w-full mt-[4rem] px-4`}>
-          <Text style={tw`text-[2.5rem] font-medium] `}>
+          <Text style={tw`text-[2.5rem] font-medium`}>
             Welcome Back!
           </Text>
           <Text style={tw`text-[1.1rem] text-gray-500`}>
@@ -125,6 +127,7 @@ const LoginScreen = () => {
       </View>
 
     </SafeAreaView>
+   
     </View>
   )
 }
