@@ -6,11 +6,17 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {Input} from '@rneui/themed';
 import {Button} from '@rneui/base';
+import { Platform } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const LoginScreen = () => {
+  // Set API URL depending on whether we're running on iOS simulator or Android emulator
+  const apiUrl = Platform.OS === 'ios' 
+    ? 'http://localhost:8080/users/login'
+    : 'http://192.168.192.10:8080/users/login';
+
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +26,7 @@ const LoginScreen = () => {
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8080/users/login', {
+      const response = await axios.post(apiUrl, {
         email,
         password,
       });
