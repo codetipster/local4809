@@ -62,7 +62,7 @@ A User logging into local4809 app
 
 ![userLoggingIN](userLogin.png)
 
-Land listing and landleasing
+Land listing and landleasings
 
 ![leaseAndRent](landLease+Rent.png)
 
