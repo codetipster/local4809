@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SignupScreen, HomeScreen, BuyScreen, SellScreen, RentScreen, FinancialScreen, PaywallScreen, Community } from './screens';
+import { HomeScreen, BuyScreen, SellScreen, RentScreen, FinancialScreen, PaywallScreen, Community } from './screens';
+import { Provider } from 'react-redux';
 import RegistrationScreen from './src/screens/RegistrationScreen';
 import  IntroSlider  from '../localapp/src/screens/IntroSlider';
 import LoginScreen from '../localapp/src/screens/LoginScreen';
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react';
 import "react-native-gesture-handler";
 import tw from 'twrnc';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import store from './src/redux/store';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +29,7 @@ export default function App() {
   }, []);
 
   return (
+    <Provider store={store}>
     <NavigationContainer>
     <KeyboardAvoidingView 
     style={tw`flex-1`}
@@ -50,6 +53,7 @@ export default function App() {
       </Stack.Navigator>
       </KeyboardAvoidingView> 
     </NavigationContainer> 
+    </Provider>
   );
 }
 

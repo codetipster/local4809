@@ -8,11 +8,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import {Button} from '@rneui/base';
 import { Platform } from 'react-native';
+import { connect } from 'react-redux'; // from react-redux
+import { login } from '../redux/actions/authActions'; // from redux/actions/authActions
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const LoginScreen = () => {
+const LoginScreen = ({ dispatch, isAuthenticated  }) => {
   // Setting API URL depending on whether we're running on iOS simulator or Android emulator
   const apiUrl = Platform.OS === 'ios' 
     ? 'http://localhost:8080/users/login'
@@ -34,6 +36,7 @@ const LoginScreen = () => {
       if (response.status === 200 && response.data.token) {
         // Save token to AsyncStorage
         AsyncStorage.setItem('userToken', response.data.token);
+        dispatch(login(response.data.token)); // dispatch login action
         navigation.navigate('HomeScreen');
       } else {
         // If no token is present or status is not 200
@@ -126,4 +129,8 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(LoginScreen); // connect LoginScreen component to Redux store
