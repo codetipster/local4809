@@ -1,6 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { IntroSlider, LoginScreen, SignupScreen, HomeScreen, BuyScreen, SellScreen, RentScreen, FinancialScreen, PaywallScreen, Community } from './screens';
+import { SignupScreen, HomeScreen, BuyScreen, SellScreen, RentScreen, FinancialScreen, PaywallScreen, Community } from './screens';
+import RegistrationScreen from './src/screens/RegistrationScreen';
+import  IntroSlider  from '../localapp/src/screens/IntroSlider';
+import LoginScreen from '../localapp/src/screens/LoginScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import "react-native-gesture-handler";
@@ -35,7 +38,7 @@ export default function App() {
         ) : (
           <Stack.Screen options={{headerShown : false}} name="LoginScreen" component={LoginScreen} />
         )}
-        <Stack.Screen options={{headerShown : false}} name="SignupScreen" component={SignupScreen} />
+        <Stack.Screen options={{headerShown : false}} name="RegistrationScreen" component={RegistrationScreen} />
         <Stack.Screen options={{headerShown : false}} name="HomeScreen" component={HomeScreen} />
         <Stack.Screen options={{headerShown : false}} name="BuyScreen" component={BuyScreen} />
         <Stack.Screen options={{headerShown : false}} name="SellScreen" component={SellScreen} />

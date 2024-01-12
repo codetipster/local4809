@@ -13,7 +13,7 @@ const IntroSlider = () => {
   pages={[
     {
       backgroundColor: '#fff',
-      image: <Image source={require('../assets/images/buy.png')} 
+      image: <Image source={require('../../assets/images/buy.png')} 
         style={styles.imageStyle}
       />,
       title: 'Buy Direct From Farm',
@@ -21,7 +21,7 @@ const IntroSlider = () => {
     },
     {
       backgroundColor: '#fff',
-      image: <Image source={require('../assets/images/rent.png')} 
+      image: <Image source={require('../../assets/images/rent.png')} 
         style={styles.imageStyle}
       />,
       title: 'Why buy when you can rent?',
@@ -29,7 +29,7 @@ const IntroSlider = () => {
     },
     {
       backgroundColor: '#fff',
-      image: <Image source={require('../assets/images/train.png')} 
+      image: <Image source={require('../../assets/images/train.png')} 
         style={styles.imageStyle}
       />,
       title: 'Trainings',
