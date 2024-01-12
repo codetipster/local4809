@@ -1,47 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, Image, Picker, StyleSheet, TouchableOpacity, Alert, Modal, ActivityIndicator } from 'react-native';
+import { View, Text, Image, StyleSheet, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import TextInput from '../components/TextInput';
 import LoadingIndicator from '../components/LoadingIndicator';
 import tw from 'twrnc';
 import { Button } from '@rneui/base';
-import { Platform } from 'react-native';
-import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import RNPickerSelect from 'react-native-picker-select';
+import authService from '../services/authService';
 
 
 const RegistrationScreen = () => {
-  const apiUrl = Platform.OS === 'ios'
-    ? 'http://localhost:8080/users/register'
-    : 'http://192.168.192.10:8080/users/register';
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('consumer');
-
-  const [loading, setLoading] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('consumer');
+    const [loading, setLoading] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const navigation = useNavigation();
 
   const handleRegistration = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(apiUrl, {
-        email,
-        password,
-        role: selectedCategory,
-      });
-      if (response.status === 201) {
-        // Registration successful
-        Alert.alert('Registration Successful', 'You can now log in with your email and password.');
-      } else {
-        // If status is not 201
-        Alert.alert('Registration Failed', 'Registration was unsuccessful.');
-      }
+      await authService.registerUser(email, password, selectedCategory);
+      Alert.alert('Registration Successful', 'You can now log in with your email and password.');
     } catch (error) {
-      // Handle error (e.g., show error message)
-      Alert.alert('Registration Failed', error.response?.data?.message || 'Registration failed. Please try again.');
+      Alert.alert('Registration Failed', error.message || 'Registration failed. Please try again.');
     }
     setLoading(false);
   };
@@ -50,8 +33,6 @@ const RegistrationScreen = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
-
-  
 
   return (
     <View style={tw`flex-1 bg-gray-100`}>

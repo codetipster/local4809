@@ -1,54 +1,39 @@
+import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import LoadingIndicator from '../components/LoadingIndicator';
 import TextInput from '../components/TextInput';
-import React, {useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import tw from 'twrnc'
 import { Ionicons } from '@expo/vector-icons';
+import { Button } from '@rneui/base';
+import { connect } from 'react-redux';
+import { login } from '../redux/actions/authActions';
+import authService from '../services/authService';
 import { useNavigation } from '@react-navigation/native';
-import {Button} from '@rneui/base';
-import { Platform } from 'react-native';
-import { connect } from 'react-redux'; // from react-redux
-import { login } from '../redux/actions/authActions'; // from redux/actions/authActions
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 
 const LoginScreen = ({ dispatch, isAuthenticated  }) => {
-  // Setting API URL depending on whether we're running on iOS simulator or Android emulator
-  const apiUrl = Platform.OS === 'ios' 
-    ? 'http://localhost:8080/users/login'
-    : 'http://192.168.192.10:8080/users/login';
-
-  const navigation = useNavigation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+    const navigation = useNavigation();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [emailError, setEmailError] = useState(false);
 
   const handleLogin = async () => {
     setLoading(true);
     try {
-      const response = await axios.post(apiUrl, {
-        email,
-        password,
-      });
-      if (response.status === 200 && response.data.token) {
-        // Save token to AsyncStorage
-        AsyncStorage.setItem('userToken', response.data.token);
-        dispatch(login(response.data.token)); // dispatch login action
-        navigation.navigate('HomeScreen');
-      } else {
-        // If no token is present or status is not 200
-        Alert.alert('Login Failed', 'Login was unsuccessful.');
-      }
+      const token = await authService.loginUser(email, password);
+      // Save token to AsyncStorage
+      await AsyncStorage.setItem('userToken', token);
+      dispatch(login(token)); // dispatch login action
+      navigation.navigate('HomeScreen');
     } catch (error) {
-      // Handle error (e.g., show error message)
-      Alert.alert('Login Failed', error.response?.data?.message || 'Invalid credentials or network error.');
+      Alert.alert('Login Failed', error.message || 'Invalid credentials or network error.');
     }
     setLoading(false);
   };
-
+  
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
