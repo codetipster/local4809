@@ -1,10 +1,6 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    Name: {
-        type: String,
-        required: true,
-    },
     Email: {
         type: String,
         required: true,
@@ -18,16 +14,38 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    Name: {
+        type: String,   
+    },
     Role: {
         type: String,
         required: true,
         enum: ['consumer', 'farmer', 'landowner'] 
     },
     profileDetails: {
-        type: mongoose.Schema.Types.Mixed, // Allows for flexibility in the data stored in this field
-        default: {}
-    }
-    
+        Phone: {
+            type: String,
+        },
+        Address: {
+            type: String,
+        },
+        ProfileImage: {
+            type: String, // Assuming you'll store image URLs
+        },
+        GovernmentID: {
+            type: String, // Assuming you'll store ID images or numbers
+        },
+    },
+    isAuthenticated: {
+        type: Boolean,
+        default: false
+    },
+    Lands: [{
+        type: String, // IDs of lands owned by the user
+    }],
+    Equipments: [{
+        type: String, // IDs of equipment owned by the user
+    }]
 });
 
 const User = mongoose.model('User', userSchema);

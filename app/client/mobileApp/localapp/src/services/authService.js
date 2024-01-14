@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 const apiUrl = Platform.OS === 'ios'
   ? 'http://localhost:8080/users'
   : 'http://192.168.192.10:8080/users';
@@ -31,6 +32,20 @@ const authService = {
   },
 
   // Other authentication methods...
+  async getUserDetails(token, userId) {
+    try {
+      const response = await axios.get(`${apiUrl}/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw error.response?.data || new Error('Failed to fetch user details. Please try again.');
+    }
+  },
+
+ 
 };
 
 export default authService;

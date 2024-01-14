@@ -1,9 +1,11 @@
+//import jwtDecode from 'jwt-decode';
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import LoadingIndicator from '../components/LoadingIndicator';
 import TextInput from '../components/TextInput';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import tw from 'twrnc'
+import { KJUR } from 'jsrsasign';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@rneui/base';
 import { connect } from 'react-redux';
@@ -19,6 +21,7 @@ const LoginScreen = ({ dispatch, isAuthenticated  }) => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [emailError, setEmailError] = useState(false);
+    
 
   const handleLogin = async () => {
     setLoading(true);
@@ -27,7 +30,23 @@ const LoginScreen = ({ dispatch, isAuthenticated  }) => {
       // Save token to AsyncStorage
       await AsyncStorage.setItem('userToken', token);
       dispatch(login(token)); // dispatch login action
-      navigation.navigate('HomeScreen');
+      // Fetch user details
+      // const decodedToken = jwtDecode(token);
+      // const userId = decodedToken._id;
+      const decodedToken = KJUR.jws.JWS.parse(token).payloadObj;
+      
+      const userId = decodedToken._id;
+      
+      const userDetails = await authService.getUserDetails(token, userId);
+      console.log( 'No user details', userDetails);
+      // Check if profile is complete
+      if (userDetails.Name) {
+        // Redirect to profile update screen if profile is incomplete
+        
+        navigation.navigate('HomeScreen');
+      } else {
+        navigation.navigate('ProfileUpdateScreen');
+      }
     } catch (error) {
       Alert.alert('Login Failed', error.message || 'Invalid credentials or network error.');
     }

@@ -1,6 +1,10 @@
+
+import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, BuyScreen, SellScreen, RentScreen, FinancialScreen, PaywallScreen, Community } from './screens';
+import MyDrawer from './src/components/Drawer';
+import ProfileUpdateScreen from './src/screens/ProfileUpdateScreen';
+import LandsScreen from './src/screens/LandsScreen';
 import { Provider } from 'react-redux';
 import RegistrationScreen from './src/screens/RegistrationScreen';
 import  IntroSlider  from '../localapp/src/screens/IntroSlider';
@@ -31,27 +35,22 @@ export default function App() {
   return (
     <Provider store={store}>
     <NavigationContainer>
-    <KeyboardAvoidingView 
-    style={tw`flex-1`}
-    behavior={Platform.OS === 'ios' ? "padding" : "height"} 
-    keyboardVerticalOffset={Platform.OS  === 'ios' ? -64 : 0}>
-      <Stack.Navigator>
-        {isFirstLaunch ? (
-          <Stack.Screen options={{headerShown : false}} name="IntroSlider" component={IntroSlider} />
-        ) : (
-          <Stack.Screen options={{headerShown : false}} name="LoginScreen" component={LoginScreen} />
-        )}
-        <Stack.Screen options={{headerShown : false}} name="RegistrationScreen" component={RegistrationScreen} />
-        <Stack.Screen options={{headerShown : false}} name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen options={{headerShown : false}} name="BuyScreen" component={BuyScreen} />
-        <Stack.Screen options={{headerShown : false}} name="SellScreen" component={SellScreen} />
-        <Stack.Screen options={{headerShown : false}} name="RentScreen" component={RentScreen} />
-        <Stack.Screen options={{headerShown : false}} name="FinancialScreen" component={FinancialScreen} />
-        <Stack.Screen options={{headerShown : false}} name="Community" component={Community} />
-        <Stack.Screen options={{headerShown : false,
-        presentation:  "modal"}} name="PaywallScreen" component={PaywallScreen} />
-      </Stack.Navigator>
-      </KeyboardAvoidingView> 
+      <KeyboardAvoidingView 
+      style={tw`flex-1`}
+      behavior={Platform.OS === 'ios' ? "padding" : "height"} 
+      keyboardVerticalOffset={Platform.OS  === 'ios' ? -64 : 0}>
+        <Stack.Navigator>
+          {isFirstLaunch ? (
+            <Stack.Screen options={{headerShown : false}} name="IntroSlider" component={IntroSlider} />
+          ) : (
+            <Stack.Screen options={{headerShown : false}} name="LoginScreen" component={LoginScreen} />
+          )}
+          <Stack.Screen options={{headerShown : false}} name="RegistrationScreen" component={RegistrationScreen} />
+          <Stack.Screen options={{headerShown : false}} name="HomeScreen" component={MyDrawer} /> 
+          <Stack.Screen options={{headerShown : false}} name="LandsScreen" component={LandsScreen} />
+          <Stack.Screen options={{headerShown : false}} name="ProfileUpdateScreen" component={ProfileUpdateScreen} />
+        </Stack.Navigator>
+        </KeyboardAvoidingView> 
     </NavigationContainer> 
     </Provider>
   );

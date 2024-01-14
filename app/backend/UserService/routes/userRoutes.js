@@ -13,7 +13,6 @@ router.post('/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
         const newUser = new User({
-            Name: req.body.name,
             Email: req.body.email,
             Password: hashedPassword,
             Role: req.body.role
@@ -23,7 +22,6 @@ router.post('/register', async (req, res) => {
         // Respond with user details, omitting sensitive information like password
         res.status(201).json({
             _id: savedUser._id,
-            Name: savedUser.Name,
             Email: savedUser.Email,
             Role: savedUser.Role
         });
@@ -58,7 +56,6 @@ router.post('/login', async (req, res) => {
             token: token,
             user: {
                 _id: user._id,
-                Name: user.Name,
                 Email: user.Email,
                 Role: user.Role,
                 isProfileComplete: user.isProfileComplete,
@@ -75,7 +72,7 @@ router.put('/update-profile/:id', async (req, res) => {
     try {
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
-            { $set: { profileDetails: req.body, isProfileComplete: true } },
+            { $set: {Name: req.body.Name, profileDetails: req.body.profileDetails, isProfileComplete: true } },
             { new: true }
         );
         res.json(updatedUser);
