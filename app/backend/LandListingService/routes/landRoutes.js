@@ -10,10 +10,18 @@ router.post('/create', auth, async (req, res) => {
         return res.status(403).send('Access Denied: Only landowners can create listings');
     }
 
-    // Create a new land listing
+    // Extract the images from the request body
+    const { images } = req.body;
+
+    // Check if at least one image is provided
+    if (!images || images.length === 0) {
+        return res.status(400).json({ message: 'At least one image is required' });
+    }
+
+    // Create a new land listing with images
     const landListing = new LandListing({
         ...req.body,
-        owner: req.user._id // Set the owner of the listing
+        owner: req.user._id, // Set the owner of the listing
     });
 
     try {

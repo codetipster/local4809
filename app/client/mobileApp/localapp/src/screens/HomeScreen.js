@@ -42,9 +42,9 @@ function HomeScreen() {
     <SafeAreaView style={tw`flex-1 `}>
         
         {/* Header section with a welcome message to user*/}
-        <View style={tw`w-full py-4 px-4`}>
+        <View style={tw`w-full px-4`}>
             <View>
-            <Text style={tw`text-xl font-bold text-green-400 p-2`}>Hello, {userName}</Text>
+            <Text style={tw`text-xl font-bold text-green-400 px-2`}>Hello, {userName}</Text>
             <Text style={tw`text-sm px-2 text-gray-500`}>What would you love to do today?</Text>
             </View>
         </View>

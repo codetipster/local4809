@@ -2,6 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+//import LandsScreen from '../screens/LandsScreen';
 import { Ionicons } from '@expo/vector-icons';
 
 const Drawer = createDrawerNavigator();
@@ -30,8 +31,13 @@ export default function MyDrawer() {
             ),
         }}
       />
+      {/* <Drawer.Screen 
+      name="Land Listings"  
+      component={LandsScreen} 
+      
+      /> */}
       <Drawer.Screen 
-      name="My Profile" 
+      name="My Profile"
       component={ProfileScreen} 
       options={{
             drawerIcon: () => (

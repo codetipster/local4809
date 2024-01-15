@@ -21,8 +21,11 @@ const landListingSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    images: [{
+        type: String, // Assuming you'll store image URLs
+    }],
     owner: {
-        type: mongoose.Schema.Types.ObjectId, // Reference to User model
+        type: mongoose.Schema.Types.ObjectId, // Reference to User model in User Service
         required: true
     },
     // Additional fields can be added here with similar structure

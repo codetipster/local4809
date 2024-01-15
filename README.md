@@ -11,9 +11,7 @@ Local4809 is a mobile application designed to revolutionize the way individuals 
 
 * User Registration and Profiles: Separate processes for consumers, farmers, and landowners.
 * Land Listing and Inquiry: Allows landowners to list lands and farmers to inquire about leasing.
-* Product Listing and Purchasing: Enables farmers to list and sell their products directly to consumers.
-* Training Application System: A feature for individuals to apply for training programs at farms.
-* Basic Messaging System: Facilitates communication among users for transactions and inquiries.
+* Farm Equipment Leasing: Allows users to list and rent farm equipments
 
 ## Architectural Overview: Microservices
 From an architectural point of view, we chose to use the microservices architecture design structure which involves developing a single application as a suite of small, independent services that run in their own processes and communicate with lightweight mechanisms, often through HTTP/API calls. 
@@ -30,7 +28,7 @@ Type of Database: Use of NoSQL databases like MongoDB for flexibility and scalab
 #### API Gateway
 Acts as the single entry point for all clients (Web, Mobile).
 Routes requests to the appropriate microservice.
-Can handle cross-cutting concerns like authentication, logging, and SSL termination.
+Can handle cross-cutting concerns like authentication, logging, and micrservice interaction.
 
 #### User Authentication and Authorization
 OAuth2 and JWT: For secure authentication and authorization across services.
@@ -49,8 +47,8 @@ Messaging Queues (like RabbitMQ): For asynchronous communication between service
 #### Core Services in Local4809
 * User Service: Handles user registration and profile management for consumers, farmers, and landowners.
 * Land Listing Service: Manages the listing, viewing, and inquiring of available lands for lease.
-* Messaging Service: Facilitates communication between users.
-* Training Application Service: Manages the application and tracking for agricultural training programs.
+* Equipment Listing Service: Facilitates communication between users.
+
 
 ### Class/model diagram for local4809
 ![dataModel](dataModel.png)
@@ -97,8 +95,6 @@ The data model for each service has been briefly highlighted below:
 * Database: MongoDB for storing user data, product listings, and land information.
 * Authentication: JWT (JSON Web Tokens) for secure user authentication.
 * APIs: RESTful APIs for frontend-backend communication.
-* Cloud Services: Google Cloud for hosting and storage services.
-* Payment Processing: Integration with Stripe or PayPal for secure transactions.
 * Version Control: Git for source code management, hosted on GitHub.
 
 ## Local Development/Environment Setup
