@@ -28,7 +28,7 @@ const CreateLandScreen = () => {
           const result = await landService.uploadImages();
           console.log('Selected Images:', result);
           if (result) {
-            setLandDetails({ ...landDetails, images: [...landDetails.images, result] });
+            setLandDetails({ ...landDetails, images: [...landDetails.images, ...result] });
           }
         } catch (error) {
           console.error(error);

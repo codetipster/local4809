@@ -1,3 +1,4 @@
+const axios = require('axios');
 const express = require('express');
 require('dotenv').config();
 const LandListing = require('../models/landListing');
@@ -26,6 +27,10 @@ router.post('/create', auth, async (req, res) => {
 
     try {
         const savedListing = await landListing.save();
+        await axios.post('http://localhost:5000/api/users/updateLandList', {
+            userId: req.user._id,
+            landId: savedListing._id
+        });
         res.status(201).json(savedListing);
     } catch (error) {
         res.status(400).json({ message: error.message });
