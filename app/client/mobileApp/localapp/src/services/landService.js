@@ -3,8 +3,9 @@ import * as ImagePicker from 'expo-image-picker';
 
 
 const apiUrl = Platform.OS === 'ios'
-  ? 'http://localhost:8080/land-listing'
-  : 'http://192.168.192.10:8080/land-listing'; // Update this with your actual backend URL
+  ? 'http://localhost:5000/api/land-listing'
+  : 'http://192.168.192.10:5000/api/land-listing';
+ // Update this with your actual backend URL
 
 const landService = {
 

@@ -23,5 +23,15 @@ const userServiceProxy = createProxyMiddleware({
 app.use('/api/users', userServiceProxy);
 
 
+const landServiceProxy = createProxyMiddleware({
+    target: 'http://localhost:8000', // Replace with your land service URL
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api/land-listing': '/land-listing',
+    },
+});
+app.use('/api/land-listing', landServiceProxy);
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`API Gateway running on port ${PORT}`));
