@@ -2,8 +2,9 @@ import axios from 'axios';
 
 
 const apiUrl = Platform.OS === 'ios'
-  ? 'http://localhost:8080/users'
-  : 'http://192.168.192.10:8080/users';
+  ? 'http://localhost:5000/api/users'
+  : 'http://192.168.192.10:5000/api/users';
+
 
 const authService = {
   async registerUser(email, password, role) {
@@ -24,7 +25,8 @@ const authService = {
       const response = await axios.post(`${apiUrl}/login`, {
         email,
         password,
-      });
+      },
+      );
       return response.data.token; // Assuming your backend returns a token upon successful login
     } catch (error) {
       throw error.response?.data || new Error('Login failed. Please check your credentials and try again.');
@@ -32,18 +34,20 @@ const authService = {
   },
 
   // Other authentication methods...
-  async getUserDetails(token, userId) {
-    try {
-      const response = await axios.get(`${apiUrl}/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || new Error('Failed to fetch user details. Please try again.');
-    }
-  },
+ // Other authentication methods...
+async getUserDetails(token, userId) {
+  try {
+    const response = await axios.get(`${apiUrl}/${userId}`, {
+      headers: {
+        'auth-token': token, // Changed from Authorization to auth-token
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || new Error('Failed to fetch user details. Please try again.');
+  }
+},
+
 
  
 };

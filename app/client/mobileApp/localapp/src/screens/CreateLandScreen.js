@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import LoadingIndicator from '../components/LoadingIndicator';
@@ -7,6 +7,7 @@ import tw from 'twrnc';
 import { Ionicons } from '@expo/vector-icons';
 import TextInput from '../components/TextInput';
 import landService from '../services/landService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreateLandScreen = () => {
     const navigation = useNavigation();
@@ -16,33 +17,40 @@ const CreateLandScreen = () => {
         description: '',
         size: '',
         location: '',
+        price: '',
         images: [],
         // Add more fields as needed
       });
     
 
+      const handleImageUpload = async () => {
+        try {
+          const result = await landService.uploadImages();
+          console.log('Selected Images:', result);
+          if (result) {
+            setLandDetails({ ...landDetails, images: [...landDetails.images, result] });
+          }
+        } catch (error) {
+          console.error(error);
+          Alert.alert('Error', 'Failed to upload image. Please try again.');
+        }
+      };
+    
       const handleCreateListing = async () => {
         setLoading(true);
         try {
-          // Assume you have a function in your land service to create a new land listing
-          await landService.createLandListing(landDetails);
+          const authToken = await AsyncStorage.getItem('userToken');
+          console.log(authToken)
+          await landService.createLandListing(landDetails, authToken);
           Alert.alert('Success', 'Land listing created successfully');
         } catch (error) {
+          console.error(error);
           Alert.alert('Error', 'Failed to create land listing. Please try again.');
         }
         setLoading(false);
       };
-
-      const handleImageUpload = async () => {
-        // Assume you have a function in your land service to upload images
-        try {
-          const result = await landService.uploadImages();
-          setLandDetails({ ...landDetails, images: result }); // Set the image URLs in the state
-          Alert.alert('Success', 'Image(s) uploaded successfully');
-        } catch (error) {
-          Alert.alert('Error', 'Failed to upload image(s). Please try again.');
-        }
-      };
+      
+      
 
   return (
     <View style={tw`flex-1 bg-gray-100`}>
@@ -66,6 +74,7 @@ const CreateLandScreen = () => {
         </View>  
 
         <View style={tw`w-full mt-[0.5rem] px-4`}>
+        
           <TextInput
             placeholder='Title'
             value={landDetails.title}
@@ -89,15 +98,23 @@ const CreateLandScreen = () => {
             keyboardType='default'
             onChangeText={(text) => setLandDetails({ ...landDetails, location: text })}
           />
+          <TextInput
+            placeholder="Price per month (#)"
+            value={landDetails.price}
+            keyboardType='default'
+            onChangeText={(text) => setLandDetails({ ...landDetails, price: text })}
+          />
+         
          {/* Image Upload Button */}
-        <Button title="Upload Image(s)" onPress={handleImageUpload} />
-
-        {/* Display uploaded image URLs */}
-        {landDetails.images.map((imageUrl, index) => (
-        <Text key={index} style={tw`text-gray-500`}>
-            Image {index + 1}: {imageUrl}
-        </Text>
-        ))}
+         <Button title="Upload Image(s)" onPress={handleImageUpload} />
+           <View style={tw`h-10 bg-black-500 color-white`}>
+                {/* Display uploaded image URLs */}
+                {landDetails.images.map((imageUrl, index) => (
+                <Text key={index} style={tw`text-gray-500`}>
+                    Image {index + 1}: {imageUrl}
+                </Text>
+                ))}
+           </View>
         </View>
         <View style={tw`w-full items-center`}> 
           <Button

@@ -2,8 +2,8 @@
 
 <img src="logo.jpg" alt="logo" width="200"/>
 
-
 ## Overview
+
 
 Local4809 is a mobile application designed to revolutionize the way individuals interact with the agricultural sector. It aims to bridge the gap between farmers, landowners, and consumers by providing a platform for direct farm product purchases, land leasing, and agricultural training opportunities. This project is at the intersection of agriculture and technology, striving to enhance accessibility, efficiency, and education in the agricultural supply chain.
 
@@ -15,6 +15,53 @@ Local4809 is a mobile application designed to revolutionize the way individuals 
 
 ## Architectural Overview: Microservices
 From an architectural point of view, we chose to use the microservices architecture design structure which involves developing a single application as a suite of small, independent services that run in their own processes and communicate with lightweight mechanisms, often through HTTP/API calls. 
+
+It includes the following components:
+
+### User Service:
+Responsibilities:
+- Handles user-related operations, such as user registration, login, updating profiles, and deletion.
+- Manages user data, including roles, authentication status, profile details, and ownership of lands and equipments.
+
+Endpoints:
+```/users/register: Registers a new user. 
+/users/login: Logs in a user and returns an authentication token.
+/users/update-profile/:id: Updates the user profile.
+/users/:id: Retrieves user details.
+/users/:id: Deletes a user.
+```
+### Land Listing Service:
+Responsibilities:
+- Manages land listing operations, including creating land listings and fetching all listings.
+Stores information about land listings, including title, description, location, size, price, images, and owner (user ID).
+
+Endpoints:
+```
+/land-listing/create: Creates a new land listing.
+/land-listing/all: Retrieves all land listings.
+```
+
+### API Gateway:
+Responsibilities:
+- Acts as an entry point for external requests.
+- Handles communication between the User Service and Land Listing Service for maintaining data consistency.
+- Proxy requests to the respective services.
+
+Endpoints:
+```
+/users/*: Proxies requests to the User Service.
+/land-listing/*: Proxies requests to the Land Listing Service.
+/land-listing: Handles the creation of a new land listing, ensuring data integrity.
+```
+
+### Database:
+Responsibilities:
+- Stores data for users and land listings.
+- Ensures data persistence and retrieval.
+
+Models:
+- User: Stores user-related data.
+- LandListing: Stores land listing-related data.
 
 ### Architecture Diagram for Local4809
 ![Architecture diagram](<Screenshot 2023-11-15 at 17.03.02.png>)
