@@ -20,20 +20,46 @@ router.post('/create', auth, async (req, res) => {
     }
 
     // Create a new land listing with images
-    const landListing = new LandListing({
-        ...req.body,
-        owner: req.user._id, // Set the owner of the listing
-    });
+    // const landListing = new LandListing({
+    //     ...req.body,
+    //     owner: req.user._id, // Set the owner of the listing
+    // });
+
+    // try {
+    //     const savedListing = await landListing.save();
+    //     await axios.post('http://localhost:5000/api/users/updateLandList', {
+    //         userId: req.user._id,
+    //         landId: savedListing._id
+    //     });
+    //     res.status(201).json(savedListing);
+    // } catch (error) {
+    //     res.status(400).json({ message: error.message });
+    // }
 
     try {
+        // Fetch the lister's details from the User Service
+        const userResponse = await axios.get(`http://localhost:5000/api/users/${req.user._id}`);
+        const listerName = userResponse.data.Name; // Assuming the User Service returns an object with a Name field
+
+        // Create a new land listing with images and lister's details
+        const landListing = new LandListing({
+            ...req.body,
+            owner: req.user._id,
+            ownerName: listerName // Include the lister's name
+        });
+
         const savedListing = await landListing.save();
+        
+        
         await axios.post('http://localhost:5000/api/users/updateLandList', {
             userId: req.user._id,
             landId: savedListing._id
         });
+
         res.status(201).json(savedListing);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        
+        res.status(500).json({ message: error.message });
     }
 });
 

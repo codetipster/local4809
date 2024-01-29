@@ -28,6 +28,10 @@ const landListingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, // Reference to User model in User Service
         required: true
     },
+    ownerName: {
+        type: String,
+        required: true // Make this required based on your use case
+    },
     // Additional fields can be added here with similar structure
 });
 

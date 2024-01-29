@@ -63,7 +63,7 @@ const LandsScreen = () => {
         <Text style={tw`text-lg font-bold`}>{item.title}</Text>
         <Text style={tw`text-sm text-gray-500`}>Size: {item.size}</Text>
         <Text style={tw`text-sm text-gray-500`}>Price: {item.price}</Text>
-        <Text style={tw`text-sm text-gray-500`}>Owner: {item.owner}</Text>
+        <Text style={tw`text-sm text-gray-500`}>Owner: {item.ownerName}</Text>
       </View>
     </TouchableOpacity>
   );
