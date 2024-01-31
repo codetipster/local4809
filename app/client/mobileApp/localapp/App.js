@@ -10,6 +10,7 @@ import RegistrationScreen from './src/screens/RegistrationScreen';
 import  IntroSlider  from '../localapp/src/screens/IntroSlider';
 import LoginScreen from '../localapp/src/screens/LoginScreen';
 import CreateLandScreen from './src/screens/CreateLandScreen';
+import ListEquipmentScreen from  './src/screens/ListEquipmentScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import "react-native-gesture-handler";
@@ -51,6 +52,7 @@ export default function App() {
           <Stack.Screen options={{headerShown : false}} name="LandsScreen" component={LandsScreen} />
           <Stack.Screen options={{headerShown : false}} name="CreateLandScreen" component={CreateLandScreen} />
           <Stack.Screen options={{headerShown : false}} name="ProfileUpdateScreen" component={ProfileUpdateScreen} />
+          <Stack.Screen options={{headerShown : false}} name="ListEquipmentScreen" component={ListEquipmentScreen} />
         </Stack.Navigator>
         </KeyboardAvoidingView> 
     </NavigationContainer> 

@@ -16,7 +16,7 @@ function HomeScreen() {
 
     const options = [
         { name: 'Lands', icon: 'ios-map', screen: 'LandsScreen', description: 'View all available lands' },
-        { name: 'Farm Equipments', icon: 'ios-hammer', screen: 'EquipmentsScreen', description: 'Browse farming equipments' },
+        { name: 'Farm Equipments', icon: 'ios-hammer', screen: 'ListEquipmentScreen', description: 'Browse farming equipments' },
         { name: 'Trainings', icon: 'ios-school', screen: 'TrainingsScreen', description: 'Access training materials' },
         { name: 'Markets', icon: 'ios-cart', screen: 'MarketsScreen', description: 'Buy and sell farm produce' },
     ];

@@ -10,7 +10,9 @@ import { KJUR } from 'jsrsasign';
 
 
 
-const LandsScreen = () => {
+
+
+const ListEquipmentScreen = () => {
   const navigation = useNavigation();
   const [landListings, setLandListings] = useState([]);
   const [userType, setUserType] = useState('');
@@ -129,4 +131,4 @@ const LandsScreen = () => {
   );
 };
 
-export default LandsScreen;
+export default ListEquipmentScreen
